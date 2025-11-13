@@ -10,7 +10,7 @@ This project is a simple currency converter application built using React.js. It
 
 # Main Files in Currency Converter Project
 
-The project is organized into several key files and directories. Here’s a breakdown of the main files:
+The project is organized into several key files and directories. Here’s a breakdown of the main file:
 
 ## `src/App.jsx`
 
