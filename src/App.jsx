@@ -1,75 +1,40 @@
-import { useState } from "react";
-import InputBox from "./components/inputBox";
-import "./App.css";
-import Hook from "./hooks/useCurrencyhook";
+import { Routes, Route, Link } from "react-router-dom";
+import Converter from "./pages/Converter";
+import About from "./pages/About";
+import MultiConvert from "./pages/MultiConvert";
+import Footer from "./components/Footer";
 
 function App() {
-  const [amount, setAmount] = useState(1);
-  const [from, setFrom] = useState("usd");
-  const [to, setTo] = useState("inr");
-  const [convertedAmount , setConvertedAmount] = useState(83.72882997)
-
-  const values = Hook(from);
-  // console.log(values)
-  const options = Object.keys(values);
-  // console.log(options)
-
-  const swapfunc =()=>{
-    setFrom(to)
-    setTo(from)
-    setAmount(convertedAmount)
-    setConvertedAmount(amount)
-  }
-
-  function submit(e) {
-    e.preventDefault()
-    let a = values[to]
-    let output = a*amount
-   setConvertedAmount(output)
-  }
-
   return (
-    <>
-      <div
-        className="flex justify-center items-center w-full h-screen bg-no-repeat bg-cover"
-        style={{
-          backgroundImage:
-            "url(https://static5.depositphotos.com/1005893/446/i/950/depositphotos_4460344-stock-photo-indian-currency.jpg)",
-        }}
-      >
-        <div className="max-w-80 text-[small] sm:text-base sm:max-w-[65%] md:max-w-[55%] lg:max-w-[44%] border rounded-lg p-2 sm:p-6 pb-1 backdrop-brightness-80 backdrop-blur-sm text-center">
-          <form onSubmit={submit} className="relative" >
-            <InputBox
-              label="From"
-              amount={amount} 
-              selectedCurrency={from}
-              onAmountChange={(value) => setAmount(value)}
-              onCurrencyChange={(Currency)=>setFrom(Currency)}
-              currencyOptions={options}
-            />
-            <button type="button" className=" text-white  bg-blue-600 rounded-lg  px-3 py-2 font-normal absolute top-[28%] left-[40%]"
-              onClick={swapfunc}
-            >
-              Swap
-            </button>
-            <InputBox
-            label="To" 
-            amount={convertedAmount}
-            selectedCurrency={to}
-            amountDisabled={true}
-            onCurrencyChange={(Currency)=>setTo(Currency)}
-            currencyOptions={options}
-            />
-            <button
-              type="Submit"
-              className="w-full text-white bg-blue-600 rounded-lg my-3 py-3"
-            >
-              convert {from} to {to}
-            </button>
-          </form>
+    <div className="flex flex-col min-h-screen w-full bg-gray-50">
+      {/* Navbar */}
+      <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+        <h1 className="text-lg font-semibold">💱 Currency Converter</h1>
+        <div className="space-x-4">
+          <Link to="/" className="hover:underline">
+            Home
+          </Link>
+          <Link to="/multi-convert" className="hover:underline">
+            Multi Convert
+          </Link>
+          <Link to="/about" className="hover:underline">
+            About
+          </Link>
         </div>
-      </div>
-    </>
+      </nav>
+
+      {/* Routing Content */}
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Converter />} />
+          <Route path="/multi-convert" element={<MultiConvert />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }
 
