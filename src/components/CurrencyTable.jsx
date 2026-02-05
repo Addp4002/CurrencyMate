@@ -1,5 +1,5 @@
 import React from "react";
-
+ // add some new features
 function CurrencyTable({ baseCurrency, amount, rates }) {
   if (!rates || Object.keys(rates).length === 0) {
     return <p className="text-gray-500 text-center mt-4">Loading rates...</p>;
